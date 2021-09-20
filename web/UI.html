@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hello, World!</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    
+    <!-- Include eel.js - note this file doesn't exist in the 'web' directory -->
+    <script type="text/javascript" src="/eel.js"></script>
+    <script type="text/javascript">
+      eel.expose(say_hello_js); // Expose this function to Python
+      function say_hello_js(x) {
+        setTimeout(
+          function()
+          { 
+            if(x > 40)
+            {
+              $('#result').css('background-color','red');
+            }
+            else
+            {
+              $('#result').css('background-color','lightseagreen');
+            }
+            $('.ocrloader span').hide();
+            $('#result').html('Corona virus chances with '+x+'% confidence');
+            $('#result').show();
+         
+          }, 5000);
+       
+      }
+
+      $('#i_file').change( function(event) {
+        var tmppath = URL.createObjectURL(event.target.files[0]);
+        //alert(tmppath);
+        $("img").fadeIn("fast").attr('src',URL.createObjectURL(event.target.files[0]));
+
+        $("#disp_tmp_path").html("Temporary Path(Copy it and try pasting it in browser address bar) --> <strong>["+tmppath+"]</strong>");
+    });
+
+
+      //say_hello_js("Javascript World!");
+   
+      //eel.say_hello_py('test'); // Call a Python function
+    </script>
+    <script>
+        $(document).ready(function(){
+          $('#i_file').change( function(event) {
+  
+              var str = $(this).val();
+              var res = str.split("fakepath");
+              var filename= res[1];
+  
+
+              $('.image-upload').hide();
+              $('.ocrloader').show();
+              $('.ocrloader span').show();
+              $("#disp_tmp_path").html(filename);
+              eel.say_hello_py(filename);
+              var tmppath = URL.createObjectURL(event.target.files[0]);
+              $("#final").fadeIn("fast").attr('src',URL.createObjectURL(event.target.files[0]));
+  
+          //  $("#disp_tmp_path").html("Temporary Path(Copy it and try pasting it in browser address bar) --> <strong>["+tmppath+"]</strong>");
+          });
+
+          $('#reset').click(function(){
+            $("#final").fadeOut("fast");
+            $('.image-upload').show();
+            $('.ocrloader').hide();
+            $('#result').hide();
+          });
+        });
+  
+      </script>
+      <style>
+
+          body{
+              margin: 0px;
+          }
+          #box
+          {
+              height: 100vh;
+              width:100%;
+              background: url('Home Page.jpg');
+              background-size: 100% 100%;
+          }
+          #i_file {
+            display: none;
+          }
+          .image-upload
+          {
+            position: absolute;
+            top:320px;
+            right:240px;
+          }
+          .image-upload img{
+            width:250px;
+          }
+
+          .ocrloader {
+            display: none;
+            width: 320px;
+            height: 390px;
+            position: absolute;
+            left: 78.5%;
+            top: 56.5%;
+            transform: translate(-50%, -50%);
+            backface-visibility: hidden;
+            }
+            .ocrloader span {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 20px;
+            background-color: rgba(45, 183, 183, 0.54);
+            z-index: 1;
+            transform: translateY(135%);
+            animation: move 2s cubic-bezier(0.15, 0.44, 0.76, 0.64);
+            animation-iteration-count: infinite;
+            }
+            .ocrloader > div {
+            z-index: 1;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 48%;
+            backface-visibility: hidden;
+            }
+            .ocrloader i {
+            display: block;
+            height: 1px;
+            background: #000;
+            margin: 0 auto 2px;
+            margin: 0 auto 2.2px;
+            backface-visibility: hidden;
+            }
+            .ocrloader i:nth-child(2) {
+            width: 75%;
+            }
+            .ocrloader i:nth-child(3) {
+            width: 81%;
+            }
+            .ocrloader i:nth-child(4) {
+            width: 87%;
+            }
+            .ocrloader i:nth-child(6) {
+            width: 71%;
+            }
+            .ocrloader i:nth-child(7) {
+            width: 81%;
+            }
+            .ocrloader i:nth-child(8) {
+            width: 65%;
+            }
+            .ocrloader i:nth-child(9) {
+            width: 83%;
+            }
+            .ocrloader i:nth-child(10) {
+            width: 75%;
+            }
+            .ocrloader i:nth-child(12) {
+            width: 86%;
+            }
+            .ocrloader i:nth-child(14) {
+            width: 65%;
+            }
+            .ocrloader i:nth-child(16) {
+            width: 75%;
+            }
+            .ocrloader i:nth-child(18) {
+            width: 83%;
+            }
+            .ocrloader:before,
+            .ocrloader:after,
+            .ocrloader em:after,
+            .ocrloader em:before {
+            border-color: #000;
+            content: "";
+            position: absolute;
+            width: 19px;
+            height: 16px;
+            border-style: solid;
+            border-width: 0px;
+            }
+            .ocrloader:before {
+            left: 0;
+            top: 0;
+            border-left-width: 1px;
+            border-top-width: 1px;
+            }
+            .ocrloader:after {
+            right: 0;
+            top: 0;
+            border-right-width: 1px;
+            border-top-width: 1px;
+            }
+            .ocrloader em:before {
+            left: 0;
+            bottom: 0;
+            border-left-width: 1px;
+            border-bottom-width: 1px;
+            }
+            .ocrloader em:after {
+            right: 0;
+            bottom: 0;
+            border-right-width: 1px;
+            border-bottom-width: 1px;
+            }
+            @keyframes move {
+            0%,
+            100% {
+            transform: translateY(135%);
+            }
+            50% {
+            transform: translateY(0%);
+            }
+            75% {
+            transform: translateY(1872%);
+            }
+            }
+            #final
+            {
+              position: relative;
+              left:-75px;
+              top:3px;
+            }
+            #result
+            {
+              height:auto;
+              width:auto;
+              color:white;
+              padding:20px;
+              padding-left:20px;
+              padding-right:20px;
+              background-color: lightseagreen;
+              border-radius: 10px;
+              font-family: arial;
+              font-size:18px;
+              position:absolute;
+              top:790px;
+              right:155px;
+              display: none;
+            }
+            #reset
+            {
+              height:35px;
+              width:120px;
+              background-color: #242424;
+              color:white;
+              text-align: center;
+              line-height: 35px;
+              border-radius: 5px;
+              position: absolute;
+              top:740px;
+              right:300px;
+              font-size:12px;
+              font-family: arial;
+            }
+      </style>
+
+  </head>
+
+  <body>
+   
+    <div id="box"></div>
+    
+    <input type="file" id="i_file" value="">
+    
+    
+    <div class="image-upload">
+      <label for="i_file">
+        <img src="Upload.jpg" width="300px" height="370px"/>
+      </label>
+    </div>
+
+
+    <div class="ocrloader">
+      <em></em>
+      <div>
+        <img src="" width="300px" height="370px" id="final"/>
+      </div>
+      <span></span>
+    </div>
+
+    <div id="result">
+      
+    </div>
+    <div id="reset">
+      RESET
+    </div>
+
+  </body>
+</html>
